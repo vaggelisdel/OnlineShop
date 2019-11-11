@@ -1,0 +1,20 @@
+[
+  {
+    "itemName": "Samsung Galaxy Note 10+",
+    "price": "700.00",
+    "stripePrice": "70000",
+    "img": "/img/note10plus.jpeg"
+  },
+  {
+    "itemName": "Samsung Galaxy S10",
+    "price": "520.00",
+    "stripePrice": "52000",
+    "img": "/img/s10.jpg"
+  },
+  {
+    "itemName": "Xiaomi Mi 9T Pro ",
+    "price": "320.00",
+    "stripePrice": "32000",
+    "img": "/img/mi9tpro.jpeg"
+  }
+]
