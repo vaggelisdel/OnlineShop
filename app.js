@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -11,12 +10,14 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var validator = require('express-validator');
 
+require('dotenv').config();
+
 var routes = require('./routes/index');
 var userRoutes = require('./routes/user');
 
 var app = express();
 
-mongoose.connect('mongodb+srv://vaggelisdel:patvLLGCyDy2tqSh@passify-zjuul.mongodb.net/ShopingCart?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGO_CONNECT_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -31,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 app.use(cookieParser());
-app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
+app.use(session({secret: process.env.EXPRESS_SESSION_SECRET_KEY, resave: false, saveUninitialized: false}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
