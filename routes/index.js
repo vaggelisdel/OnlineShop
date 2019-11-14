@@ -1,30 +1,34 @@
 var express = require('express');
 var router = express.Router();
-const stripe = require('stripe')('sk_test_RmYiR9mDnMh06I85CqXyVpPd007X92HchW');
-var items = require('../items');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', {
-    data: items
-  });
+var HomeController = require('../controllers/Home');
+var CartController = require('../controllers/Cart');
+
+router.get('/', function (req, res, next) {
+    HomeController.index(req, res, next);
 });
 
-router.post('/charge', function(req, res, next) {
-  const amount = req.body.amount;
-  const description = req.body.description;
-
-  stripe.customers.create({
-    email: req.body.stripeEmail,
-    source: req.body.stripeToken
-  })
-      .then(customer => stripe.charges.create({
-        amount: amount,
-        description: description,
-        currency: 'eur',
-        customer: customer.id
-      }))
-      .then(charge => res.render('success'));
+router.get('/add-to-card/:id', function (req, res, next) {
+    CartController.addToCard(req, res, next);
 });
 
+router.get('/shopping-cart', function (req, res, next) {
+    CartController.shoppingCart(req, res, next);
+});
+
+router.get('/checkout', isLoggedIn, function (req, res, next) {
+    CartController.getCheckout(req, res, next);
+});
+
+router.post('/checkout', isLoggedIn, function (req, res, next) {
+    CartController.postCheckout(req, res, next);
+});
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    req.session.oldUrl = req.url;
+    res.redirect('/user/signin');
+}
 module.exports = router;
