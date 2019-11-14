@@ -10,7 +10,8 @@
                         {{# each this.items }}
                             <li class="list-group-item">
                                 <span class="badge">{{ this.price }}&euro;</span>
-                                {{ this.item.name }} | QTY: {{ this.qty }}
+                                {{ this.item.name }}
+                                <span class="label label-primary">QTY: {{this.qty}}</span>
                             </li>
                         {{/each}}
                     </ul>
