@@ -3,6 +3,7 @@ var router = express.Router();
 
 var Product = require('../models/product');
 var Cart = require('../models/cart');
+var Order = require('../models/order');
 
 router.get('/', function (req, res, next) {
     var successMsg = req.flash('success')[0];
@@ -41,7 +42,7 @@ router.get('/shopping-cart', function (req, res, next) {
         return res.render('shop/shopping-cart', {products: null});
     }
     var cart = new Cart(req.session.cart);
-    res.render('shop/shopping-cart', {products: cart.generateArray(), totalPrice: cart.totalPrice.toFixed(2)});
+    res.render('shop/shopping-cart', {products: cart.generateArray(), totalPrice: cart.totalPrice});
 });
 
 router.get('/checkout', function (req, res, next) {
@@ -50,10 +51,10 @@ router.get('/checkout', function (req, res, next) {
     }
     var cart = new Cart(req.session.cart);
     var errMsg = req.flash('error')[0];
-    res.render('shop/checkout', {total: cart.totalPrice.toFixed(2), errMsg: errMsg, noError: !errMsg});
+    res.render('shop/checkout', {total: cart.totalPrice, errMsg: errMsg, noError: !errMsg});
 });
 
-router.post('/checkout', function (req, res, next) {
+router.post('/checkout', isLoggedIn, function (req, res, next) {
     if (!req.session.cart) {
         return res.redirect('/shopping-cart');
     }
@@ -64,7 +65,7 @@ router.post('/checkout', function (req, res, next) {
     );
 
     stripe.charges.create({
-        amount: cart.totalPrice.toFixed(2) * 100,
+        amount: cart.totalPrice * 100,
         currency: "eur",
         source: req.body.stripeToken, // obtained with Stripe.js
         description: "Test Charge"
@@ -73,33 +74,26 @@ router.post('/checkout', function (req, res, next) {
             req.flash('error', err.message);
             return res.redirect('/checkout');
         }
-        req.flash('success', 'Successfully bought product!');
-        req.session.cart = null;
-        res.redirect('/');
+        var order = new Order({
+            user: req.user,
+            cart: cart,
+            address: req.body.address,
+            name: req.body.name,
+            paymentId: charge.id
+        });
+        order.save(function(err, result) {
+            req.flash('success', 'Successfully bought product!');
+            req.session.cart = null;
+            res.redirect('/');
+        });
     });
 });
 
-// router.get('/add', function (req, res, next) {
-//   var request = require("request");
-//   request.get('https://api.myjson.com/bins/1a996e', {json: true}, (error, response, body) => {
-//     if (error) {
-//       console.error(error);
-//       return
-//     }
-//     var data = JSON.stringify(body);
-//     var objects = JSON.parse(data);
-//
-//     for (var i = 0, len = objects.length; i < len; i++) {
-//           var row = objects[i];
-//           const productItem = new Product(row);
-//           productItem.save().then(
-//               data=> {console.log("Insert...")}
-//           ).catch(err=>{
-//             throw err;
-//           })
-//         }
-//      console.log("Completed!");
-//   })
-// });
-
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    req.session.oldUrl = req.url;
+    res.redirect('/user/signin');
+}
 module.exports = router;
