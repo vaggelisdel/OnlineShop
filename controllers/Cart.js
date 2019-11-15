@@ -3,7 +3,7 @@ var Cart = require('../models/cart');
 var Order = require('../models/order');
 
 module.exports = {
-    addToCard: function (req, res, next) {
+    addToCart: function (req, res, next) {
         var productId = req.params.id;
         var cart = new Cart(req.session.cart ? req.session.cart : {});
 
@@ -16,6 +16,22 @@ module.exports = {
             // console.log(req.session.cart);
             res.redirect('/');
         });
+    },
+    reduceByOne: function (req, res, next) {
+        var productId = req.params.id;
+        var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+        cart.reduceitem(productId);
+        req.session.cart = cart;
+        res.redirect('/shopping-cart');
+    },
+    removeitem: function (req, res, next) {
+        var productId = req.params.id;
+        var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+        cart.removeSignleItem(productId);
+        req.session.cart = cart;
+        res.redirect('/shopping-cart');
     },
     shoppingCart: function (req, res, next) {
         if (!req.session.cart) {

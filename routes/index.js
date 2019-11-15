@@ -8,8 +8,16 @@ router.get('/', function (req, res, next) {
     HomeController.index(req, res, next);
 });
 
-router.get('/add-to-card/:id', function (req, res, next) {
-    CartController.addToCard(req, res, next);
+router.get('/add-to-cart/:id', function (req, res, next) {
+    CartController.addToCart(req, res, next);
+});
+
+router.get('/reduce/:id', function (req, res, next) {
+    CartController.reduceByOne(req, res, next);
+});
+
+router.get('/removeitem/:id', function (req, res, next) {
+    CartController.removeitem(req, res, next);
 });
 
 router.get('/shopping-cart', function (req, res, next) {

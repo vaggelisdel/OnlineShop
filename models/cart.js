@@ -16,6 +16,29 @@ module.exports = function Cart(oldCart) {
         this.totalPrice = parseFloat(parseFloat(this.totalPrice) + parseFloat(singlePrice)).toFixed(2);
     };
 
+    this.reduceitem = function (id) {
+        this.items[id].qty--;
+        this.items[id].price -= this.items[id].item.price;
+        this.totalQty--;
+        var y = 0;
+        y += this.items[id].item.price;
+        var s = this.totalPrice - y;
+        this.totalPrice = parseFloat(s).toFixed(2);
+
+        if (this.items[id].qty <= 0) {
+            delete this.items[id];
+        }
+    };
+
+    this.removeSignleItem = function (id) {
+        this.totalQty -= this.items[id].qty;
+        var x = 0;
+        x += this.items[id].price;
+        var d = parseFloat(this.totalPrice) - parseFloat(x);
+        this.totalPrice = parseFloat(d).toFixed(2);
+        delete this.items[id];
+    };
+
     this.generateArray = function () {
         var arr = [];
         for (var id in this.items) arr.push(this.items[id]);
