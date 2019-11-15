@@ -1,64 +1,87 @@
-`<div class="row">
-    <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
-        <h1>Checkout</h1>
-        <h4>Your Total: {{total}}&euro;</h4>
-        <div id="charge-error" class="alert alert-danger {{#if noError}}hidden{{/if}}">
-            {{errMsg}}
+<div class="creditCardForm">
+    <div class="form-row">
+        <div class="form-group col-sm-12 text-center">
+            <h1>Checkout</h1>
+            <h4>Total Price: <strong>{{total}}&euro;</strong></h4>
+            <div id="charge-error" class="alert alert-danger {{#if noError}}hidden{{/if}}">
+                {{errMsg}}
+            </div>
         </div>
+    </div>
+    <div class="payment">
         <form action="/checkout" method="post" id="checkout-form">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" class="form-control" required name="name">
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" class="form-control" required name="address">
-                    </div>
-                </div>
-                <hr>
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="card-name">Card Holder Name</label>
-                        <input type="text" id="card-name" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="card-number">Credit Card Number</label>
-                        <input type="text" id="card-number" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <div class="form-group">
-                                <label for="card-expiry-month">Expiration Month</label>
-                                <input type="text" id="card-expiry-month" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="form-group">
-                                <label for="card-expiry-year">Expiration Year</label>
-                                <input type="text" id="card-expiry-year" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="card-cvc">CVC</label>
-                        <input type="text" id="card-cvc" class="form-control" required>
-                    </div>
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name">
                 </div>
             </div>
-            <button type="submit" class="btn btn-success">Buy now</button>
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-6">
+                    <label for="owner">Owner</label>
+                    <input type="text" class="form-control" id="owner">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="cvv">CVV</label>
+                    <input type="text" class="form-control" id="cvv">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" class="form-control" id="cardNumber">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-6">
+                    <label>Expiration Date</label>
+                    <select id="expiration-month">
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select id="expiration-year">
+                        <option value="16"> 2019</option>
+                        <option value="17"> 2020</option>
+                        <option value="18"> 2021</option>
+                        <option value="19"> 2022</option>
+                        <option value="20"> 2023</option>
+                        <option value="21"> 2024</option>
+                        <option value="21"> 2025</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6 text-right">
+                    <label>Available Cards</label>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" id="visa">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png" id="mastercard">
+                    <img src="https://i.ya-webdesign.com/images/american-express-card-logo-png-13.png" id="amex">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <button type="submit" class="btn btn-success">Confirm</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
 
+<script src="javascripts/jquery.payform.min.js" charset="utf-8"></script>
+<script src="javascripts/payment_validation.js" charset="utf-8"></script>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript" src="javascripts/checkout.js"></script>

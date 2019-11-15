@@ -16,6 +16,10 @@ router.get('/reduce/:id', function (req, res, next) {
     CartController.reduceByOne(req, res, next);
 });
 
+router.get('/increase/:id', function (req, res, next) {
+    CartController.increaseByOne(req, res, next);
+});
+
 router.get('/removeitem/:id', function (req, res, next) {
     CartController.removeitem(req, res, next);
 });

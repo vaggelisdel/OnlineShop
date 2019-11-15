@@ -1,36 +1,94 @@
 {{# if this.products }}
-    <div class="row">
-        <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-            <ul class="list-group">
-                {{#each products}}
-                    <li class="list-group-item">
-                        <span class="badge">QTY: {{this.qty}}</span>
-                        <span style="font-weight: bold">{{this.item.name}}</span>
-                        <span class="label label-success">{{this.price}}&euro;</span>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                Action <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="/reduce/{{this.item._id}}">Reduce by 1</a></li>
-                                <li><a href="/removeitem/{{this.item._id}}">Remove All</a></li>
-                            </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                                </div>
+                                <div class="col-xs-3">
+                                    <a href="/" type="button" class="btn btn-primary btn-sm btn-block">
+                                        <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                {{/each}}
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
-            <strong>Total: {{totalPrice}}&euro;</strong>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
-            <a href="/checkout" type="button" class="btn btn-success">Checkout</a>
+                    </div>
+                    <div class="panel-body">
+
+                        {{#each products}}
+                            <div class="row">
+                                <div class="col-xs-1"><img class="img-responsive" src="{{this.item.img}}" alt="">
+                                </div>
+                                <div class="col-xs-5">
+                                    <h4 class="product-name"><strong>{{this.item.name}}</strong></h4><h4>
+                                    <small>{{this.item.description}}</small></h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="col-xs-3">
+                                        <h6><strong>{{this.price}}&euro;</strong></h6>
+                                    </div>
+                                    <div class="col-xs-2 text-right">
+                                        <h6><strong>{{this.item.price}}&euro; <span class="text-muted">x</span></strong>
+                                        </h6>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="input-group number-spinner">
+                                            <span class="input-group-btn">
+                                                <a href="/reduce/{{this.item._id}}" class="btn btn-danger" data-dir="dwn">
+                                                    <span class="glyphicon glyphicon-minus"></span>
+                                                </a>
+                                            </span>
+                                            <span class="form-control text-center">{{this.qty}}</span>
+                                            <span class="input-group-btn">
+                                                <a href="/increase/{{this.item._id}}" class="btn btn-primary" data-dir="up">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 text-right">
+                                        <a href="/removeitem/{{this.item._id}}" type="button"
+                                           class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-trash"> </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        {{/each}}
+
+                        <hr>
+                        <div class="row">
+                            <div class="text-center">
+                                <div class="col-xs-9">
+                                    <h6 class="text-right">Something Changes?</h6>
+                                </div>
+                                <div class="col-xs-3">
+                                    <a href="/shopping-cart" type="button" class="btn btn-default btn-sm btn-block">
+                                        Update cart
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row text-center">
+                            <div class="col-xs-9">
+                                <h4 class="text-right">Total <strong>{{totalPrice}}&euro;</strong></h4>
+                            </div>
+                            <div class="col-xs-3">
+                                <a href="/checkout" type="button" class="btn btn-success btn-block">
+                                    Checkout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {{ else }}

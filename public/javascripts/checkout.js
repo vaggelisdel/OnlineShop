@@ -6,11 +6,11 @@ $form.submit(function (event) {
     $('#charge-error').addClass('hidden');
     $form.find('button').prop('disabled', true);
     Stripe.card.createToken({
-        number: $('#card-number').val(),
-        cvc: $('#card-cvc').val(),
-        exp_month: $('#card-expiry-month').val(),
-        exp_year: $('#card-expiry-year').val(),
-        name: $('#card-name').val()
+        number: $('#cardNumber').val(),
+        cvc: $('#cvc').val(),
+        exp_month: $('#expiration-month').val(),
+        exp_year: $('#expiration-year').val(),
+        name: $('#owner').val()
     }, stripeResponseHandler);
     return false;
 });
