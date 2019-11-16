@@ -4,10 +4,17 @@ $(function() {
     var cardNumber = $('#cardNumber');
     var cardNumberField = $('#card-number-field');
     var CVV = $("#cvv");
-    var mastercard = $("#mastercard");
     var confirmButton = $('#confirm-purchase');
-    var visa = $("#visa");
-    var amex = $("#amex");
+    var detected_card = $("#detect_card");
+
+    var visa = 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg';
+    var mastercard = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png';
+    var amex = 'https://paymentweek.com/wp-content/uploads/2015/10/American-Express-copy.png';
+    var discover = 'https://i2.wp.com/www.9southvapes.com/wp-content/uploads/2019/05/discover-credit-card-logo-transparent.jpg?fit=900%2C640&ssl=1';
+    var empty = 'https://support.lenovo.com/esv4/images/loading.gif';
+
+    var iconheight = CVV.height();
+    detected_card.css('height', iconheight+"px");
 
     // Use the payform library to format and validate
     // the payment fields.
@@ -18,10 +25,6 @@ $(function() {
 
     cardNumber.keyup(function() {
 
-        amex.removeClass('transparent');
-        visa.removeClass('transparent');
-        mastercard.removeClass('transparent');
-
         if ($.payform.validateCardNumber(cardNumber.val()) == false) {
             cardNumberField.addClass('has-error');
         } else {
@@ -30,14 +33,15 @@ $(function() {
         }
 
         if ($.payform.parseCardType(cardNumber.val()) == 'visa') {
-            mastercard.addClass('transparent');
-            amex.addClass('transparent');
+            detected_card.attr('src', visa);
         } else if ($.payform.parseCardType(cardNumber.val()) == 'amex') {
-            mastercard.addClass('transparent');
-            visa.addClass('transparent');
+            detected_card.attr('src', amex);
         } else if ($.payform.parseCardType(cardNumber.val()) == 'mastercard') {
-            amex.addClass('transparent');
-            visa.addClass('transparent');
+            detected_card.attr('src', mastercard);
+        } else if ($.payform.parseCardType(cardNumber.val()) == 'discover') {
+            detected_card.attr('src', discover);
+        } else if ($.payform.parseCardType(cardNumber.val()) == null) {
+            detected_card.attr('src', empty);
         }
     });
 

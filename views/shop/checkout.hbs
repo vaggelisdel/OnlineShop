@@ -30,11 +30,14 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-sm-12">
-                    <input type="text" class="form-control" id="cardNumber" placeholder="Card Number">
+                    <div class="input-container">
+                        <input class="form-control input-field" type="text" placeholder="Card Number" id="cardNumber">
+                        <img src="https://sfrecpark.org/wp-content/uploads/Credit-Card-Icon.png" id="detect_card" class="icon"/>
+                    </div>
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-12">
                     <label>Expiration Date</label>
                     <select id="expiration-month">
                         <option value="01">January</option>
@@ -59,12 +62,6 @@
                         <option value="24"> 2024</option>
                         <option value="25"> 2025</option>
                     </select>
-                </div>
-                <div class="form-group col-sm-6 text-right">
-                    <label></label>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" id="visa">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png" id="mastercard">
-                    <img src="https://i.ya-webdesign.com/images/american-express-card-logo-png-13.png" id="amex">
                 </div>
             </div>
             <div class="form-row">

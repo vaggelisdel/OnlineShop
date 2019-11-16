@@ -56,9 +56,10 @@ body{
 .creditCardForm .CVV {
     width: 35%;
 }
-#visa, #mastercard, #amex{
+#detect_card{
     vertical-align: -webkit-baseline-middle;
     width: 60px;
+    object-fit: contain;
 }
 .creditCardForm .payment .btn {
     width: 100%;
@@ -88,4 +89,25 @@ body{
     .creditCardForm #credit_cards {
         text-align: left;
     }
+}
+.input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.icon {
+    padding: 5px;
+    background: #ededed;
+    color: black;
+    min-width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+.input-field {
+    width: 100%;
+    outline: none;
 }
