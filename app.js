@@ -13,8 +13,9 @@ const MongoStore = require('connect-mongo')(session);
 
 require('dotenv').config();
 
-var routes = require('./routes/index');
+var indexRoutes = require('./routes/index');
 var userRoutes = require('./routes/user');
+var shopRoutes = require('./routes/shop');
 
 var app = express();
 
@@ -52,7 +53,8 @@ app.use(function(req, res, next) {
 });
 
 app.use('/user', userRoutes);
-app.use('/', routes);
+app.use('/shop', shopRoutes);
+app.use('/', indexRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

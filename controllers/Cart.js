@@ -49,7 +49,7 @@ module.exports = {
 
         cart.removeSignleItem(productId);
         req.session.cart = cart;
-        res.redirect('/shopping-cart');
+        res.redirect('/shop/shopping-cart');
     },
     shoppingCart: function (req, res, next) {
         if (!req.session.cart) {
