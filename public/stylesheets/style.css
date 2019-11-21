@@ -8756,11 +8756,12 @@ h1, h2, h3, h4, h5,
   width: 100%; }
 .product .text h3 {
   font-size: 14px;
-  margin-bottom: 5px;
+  margin-bottom: 1em;
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-family: "Poppins", Arial, sans-serif; }
+  font-family: "Poppins", Arial, sans-serif;
+}
 .product .text h3 a {
   color: #000000; }
 .product .text p.price {
@@ -8789,7 +8790,8 @@ h1, h2, h3, h4, h5,
   -o-transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
-  transition: all 0.3s ease; }
+  transition: all 0.3s ease;
+}
 .product .text .bottom-area button {
   color: #fff;
   width: 100%;
@@ -8802,6 +8804,10 @@ h1, h2, h3, h4, h5,
   -ms-border-radius: 50%;
   border-radius: 50%;
   border: none;
+  outline: none;
+}
+.product .text .bottom-area button:hover{
+  cursor:pointer;
 }
 .product .text .bottom-area .m-auto {
   margin: 0 auto; }
