@@ -18,7 +18,7 @@
                 <li>
                     <a href="/shopping-cart">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart
-                        <span class="badge">
+                        <span class="badge" id="totalItems">
                             {{#if session.cart.totalQty}}
                                 {{session.cart.totalQty}}
                             {{else}}

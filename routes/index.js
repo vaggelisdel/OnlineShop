@@ -10,17 +10,17 @@ router.get('/', function (req, res, next) {
 });
 
 //add to card with get
-router.get('/add-to-cart/:id', function (req, res, next) {
+router.post('/add-to-cart', function (req, res, next) {
     CartController.addToCart(req, res, next);
 });
 
 //reduce one item
-router.get('/reduce/:id', function (req, res, next) {
+router.post('/reduceone', function (req, res, next) {
     CartController.reduceByOne(req, res, next);
 });
 
 //increase one item
-router.get('/increase/:id', function (req, res, next) {
+router.post('/increaseone', function (req, res, next) {
     CartController.increaseByOne(req, res, next);
 });
 

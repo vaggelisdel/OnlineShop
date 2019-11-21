@@ -17,7 +17,7 @@
                         <p class="description">{{ this.description }}</p>
                         <div class="clearfix">
                             <div class="price pull-left">{{ this.price }}&euro;</div>
-                            <a href="/add-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Shopping Cart</a>
+                            <button class="btn btn-success pull-right addToCart" id="{{this._id}}">Add to Shopping Cart</button>
                         </div>
                     </div>
                 </div>
@@ -25,3 +25,21 @@
         {{/each}}
     </div>
 {{/each}}
+
+<script>
+    $(document).on('click', '.addToCart', function () {
+        var productid = $(this).attr("id");
+        $.ajax(
+                {
+                    url: '/add-to-cart',
+                    type: 'POST',
+                    data: 'id=' + productid,
+                    dataType: 'html',
+                    success: function (data) {
+                        var totalItems = JSON.parse(data);
+                        document.getElementById("totalItems").innerHTML = totalItems.total;
+                    },
+                });
+
+    });
+</script>
